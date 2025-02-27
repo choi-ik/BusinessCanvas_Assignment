@@ -9,9 +9,6 @@ module.exports = {
     "plugin:react-hooks/recommended",
   ],
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project,
-  },
   plugins: ["import", "unused-imports", "react-refresh"],
   rules: {
     "unused-imports/no-unused-imports": "error",
@@ -22,6 +19,7 @@ module.exports = {
       { blankLine: "always", prev: "*", next: "return" },
     ],
     "space-before-blocks": [2, "always"],
+    "react/react-in-jsx-scope": "off",
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "react/function-component-definition": ["error", { namedComponents: ["function-declaration"] }],
     "react/jsx-key": "error",
@@ -40,7 +38,11 @@ module.exports = {
           "unknown",
         ],
         pathGroups: [
-            { pattern: "**/{assets,components,constants,hooks,types,ui,utils}/**", group: "internal", position: "after" }
+          {
+            pattern: "**/{assets,components,constants,hooks,types,ui,utils}/**",
+            group: "internal",
+            position: "after",
+          },
         ],
         alphabetize: {
           order: "asc",
@@ -49,12 +51,5 @@ module.exports = {
       },
     ],
   },
-  settings: {
-    "import/resolver": {
-      typescript: {
-        project,
-      },
-    },
-  },
   ignorePatterns: ["node_modules/", "dist/"],
-}
+};
