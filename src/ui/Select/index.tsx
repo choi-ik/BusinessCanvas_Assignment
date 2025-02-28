@@ -1,4 +1,6 @@
-import { ComponentProps, Dispatch, SetStateAction, useCallback, useState } from "react";
+import { ComponentProps, useState } from "react";
+
+import useControllableState from "@/hooks/useControllableState";
 
 import { Content } from "./Content";
 import { Item } from "./Item";
@@ -8,44 +10,25 @@ import { Trigger } from "./Trigger";
 interface SelectProps extends ComponentProps<"div"> {
   selectedValue?: string;
   onSelectedValue?: (value: string) => void;
+  defaultValue?: string;
 }
 
 function SelectRoot({
   children,
   selectedValue: externalSelectedValue,
   onSelectedValue: externalOnSelectedValue,
+  defaultValue,
   ...props
 }: SelectProps) {
   const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string | undefined>();
-
-  const isControlled = externalSelectedValue !== undefined;
-  const value = isControlled ? externalSelectedValue : selectedValue;
-
-  const handleSelect: Dispatch<SetStateAction<string | undefined>> = useCallback(
-    (nextValue) => {
-      if (isControlled) {
-        const newValue =
-          typeof nextValue === "function" ? nextValue(externalSelectedValue) : nextValue;
-        if (newValue !== externalSelectedValue) {
-          externalOnSelectedValue?.(newValue as string);
-        }
-      } else {
-        setSelectedValue((prev) => {
-          const newValue = typeof nextValue === "function" ? nextValue(prev) : nextValue;
-          externalOnSelectedValue?.(newValue as string);
-
-          return newValue;
-        });
-      }
-    },
-    [isControlled, externalSelectedValue, externalOnSelectedValue],
-  );
+  const [selectedValue, setSelectedValue] = useControllableState<string>({
+    prop: externalSelectedValue,
+    onChange: externalOnSelectedValue,
+    defaultProp: defaultValue,
+  });
 
   return (
-    <SelectContext.Provider
-      value={{ open, setOpen, selectedValue: value, setSelectedValue: handleSelect }}
-    >
+    <SelectContext.Provider value={{ open, setOpen, selectedValue, setSelectedValue }}>
       <div className="h-fit w-fit" {...props}>
         {children}
       </div>
