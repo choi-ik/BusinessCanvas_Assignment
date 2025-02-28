@@ -1,3 +1,4 @@
+/* eslint-env node */
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -9,6 +10,15 @@ module.exports = {
     "plugin:react-hooks/recommended",
   ],
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: "module",
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
   plugins: ["import", "unused-imports", "react-refresh"],
   rules: {
     "unused-imports/no-unused-imports": "error",
