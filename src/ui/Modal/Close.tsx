@@ -1,0 +1,28 @@
+import { ComponentProps, forwardRef } from "react";
+
+import useModalContext from "@/hooks/context/useModalContext";
+import { cn } from "@/utils/tailwind";
+
+import { Icon } from "../Icon";
+
+const Close = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
+  ({ className, ...props }, ref) => {
+    const { setOpen } = useModalContext();
+
+    return (
+      <button
+        ref={ref}
+        type="button"
+        onClick={() => setOpen?.(false)}
+        className={cn("opacity-70 transition-opacity hover:opacity-100", className)}
+        {...props}
+      >
+        <Icon name="X" size={22} className="text-black/45" />
+        <span className="sr-only">Close</span>
+      </button>
+    );
+  },
+);
+Close.displayName = "Close";
+
+export { Close };
