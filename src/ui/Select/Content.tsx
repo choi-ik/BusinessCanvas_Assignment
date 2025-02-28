@@ -9,6 +9,12 @@ const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
 
     const contentRef = useRef<HTMLDivElement>(null);
 
+    const setRefs = (node: HTMLDivElement | null) => {
+      contentRef.current = node;
+      if (typeof ref === "function") ref(node);
+      else if (ref) (ref as RefObject<HTMLDivElement | null>).current = node;
+    };
+
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (contentRef.current && !contentRef.current.contains(event.target as Node)) {
@@ -28,11 +34,7 @@ const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
 
     return (
       <div
-        ref={(node) => {
-          contentRef.current = node;
-          if (typeof ref === "function") ref(node);
-          else if (ref) (ref as RefObject<HTMLDivElement | null>).current = node;
-        }}
+        ref={setRefs}
         className={cn(
           "relative z-50 mt-1 box-border w-[12.375rem] rounded-[0.625rem] border p-1 shadow-[0px_9px_28px_8px_#0000000D,0px_3px_6px_-4px_#0000001F,0px_6px_16px_0px_#00000014]",
           className,
