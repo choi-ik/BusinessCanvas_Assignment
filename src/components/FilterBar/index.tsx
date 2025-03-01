@@ -13,13 +13,21 @@ interface FilterBarProps {
   setRecords: (records: MemberRecord[]) => void;
 }
 
+/** 테이블 상단에서 필터링을 위한 필터 바 컴포넌트 */
 export default function FilterBar({ setRecords }: FilterBarProps) {
+  // 로컬 스토리지에서 기존 데이터 가져오기
   const records = createArrayStorage<MemberRecord>(MEMBER_KEY).getValue();
 
+  // 필터 선택된 값 상태
   const [filterSelections, setFilterSelections] = useState<{ [field: string]: string[] }>({});
 
+  // 현재 열려 있는 필터 메뉴의 인덱스
   const [openFieldIndex, setOpenFieldIndex] = useState<number | null>(null);
 
+  /**
+   * 필터 선택 토글
+   * 기존 선택된 값이 있으면 제거, 없으면 추가
+   */
   const handleFilterToggle = (field: string, value: string) => {
     setFilterSelections((prev) => {
       const prevSelected = prev[field] || [];
@@ -34,9 +42,11 @@ export default function FilterBar({ setRecords }: FilterBarProps) {
     });
   };
 
+  // 선택된 필터를 기반으로 데이터 필터링
   const applyFilters = () => {
     if (!records) return;
 
+    // 필터가 하나도 없으면 전체 데이터 반환
     const activeFilters = Object.entries(filterSelections).filter(
       ([, values]) => values.length > 0,
     );
@@ -49,6 +59,7 @@ export default function FilterBar({ setRecords }: FilterBarProps) {
 
     let unionFiltered: MemberRecord[] = [];
 
+    // 각 필드별 필터링 적용
     activeFilters.forEach(([field, values]) => {
       let filteredForField: MemberRecord[] = [];
       if (field === "이름") {
@@ -75,6 +86,7 @@ export default function FilterBar({ setRecords }: FilterBarProps) {
       unionFiltered = unionFiltered.concat(filteredForField);
     });
 
+    // 중복 제거 후 최종 데이터 저장
     const deduped = Array.from(
       new Map(unionFiltered.map((record) => [record.name, record])).values(),
     );
@@ -82,13 +94,14 @@ export default function FilterBar({ setRecords }: FilterBarProps) {
     setRecords(deduped);
   };
 
+  // 필터 상태 변경 시 필터링 적용
   useEffect(() => {
     applyFilters();
   }, [filterSelections]);
 
   return (
     <tr className="flex h-[2.375rem] w-[81.063rem] border-y border-black/[.06] bg-black/[.06]">
-      <td className="flex h-full w-8 items-center justify-center">{/* 여기에 체크박스 등 */}</td>
+      <td className="flex h-full w-8 items-center justify-center">{/* 체크박스 자리 */}</td>
       {RECORD_HEAD.map(({ name, size }, index) => (
         <th
           key={name}

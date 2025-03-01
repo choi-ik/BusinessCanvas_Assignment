@@ -1,5 +1,6 @@
 import { createContext } from "react";
 
+/** Select 상태 공유 저장소 */
 interface SelectContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;

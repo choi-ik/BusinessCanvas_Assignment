@@ -2,6 +2,7 @@ type StorageMode = "local-storage" | "in-memory";
 
 const STORAGE_MODE: StorageMode = import.meta.env.VITE_STORAGE || "in-memory";
 
+/** in-memory/local-storage 환경 변수 설정에 따른 데이터 핸들러 유틸 함수 */
 export function createStorage<T>(key: string, initialValue?: T) {
   const serialize = (value: T): string => JSON.stringify(value);
 

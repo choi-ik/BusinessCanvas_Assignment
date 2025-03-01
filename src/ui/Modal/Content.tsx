@@ -6,11 +6,13 @@ import { cn } from "@/utils/tailwind";
 import { Overlay } from "./Overlay";
 import { Portal } from "./Protal";
 
+/** Modal의 헤더와 푸터, 모달의 내용을 담는 Container 역할의 컴포넌트 */
 const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
   ({ className, children, ...props }, ref) => {
     const { open, setOpen } = useModalContext();
     const contentRef = useRef<HTMLDivElement | null>(null);
 
+    // contentRef와 forwardRef의 참조를 동기화
     const setRefs = (node: HTMLDivElement | null) => {
       contentRef.current = node;
       if (typeof ref === "function") ref(node);
@@ -22,6 +24,7 @@ const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
     };
 
     useEffect(() => {
+      // 모달 외부 클릭 반응 로직
       const handleClickOutside = (event: MouseEvent) => {
         if (open && contentRef.current && !contentRef.current.contains(event.target as Node)) {
           setOpen?.(false);
@@ -32,7 +35,7 @@ const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, [setOpen]);
+    }, []);
 
     if (!open) return null;
 

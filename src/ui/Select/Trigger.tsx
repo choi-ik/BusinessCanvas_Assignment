@@ -3,6 +3,7 @@ import { ComponentProps, forwardRef } from "react";
 import useSelectContext from "@/hooks/context/useSelectContext";
 import { cn } from "@/utils/tailwind";
 
+/** Select Trigger 컴포넌트 */
 const Trigger = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
   ({ className, children, ...props }, ref) => {
     const { open, setOpen, selectedValue } = useSelectContext();

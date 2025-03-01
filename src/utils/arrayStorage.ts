@@ -1,5 +1,6 @@
 import { createStorage } from "./storage";
 
+/** storage.ts의 배열 연산 확장 전용 헬퍼  */
 export function createArrayStorage<T>(key: string, initialValue: T[] = []) {
   const storage = createStorage<T[]>(key, initialValue);
 

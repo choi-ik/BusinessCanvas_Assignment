@@ -3,6 +3,7 @@ import { Children, cloneElement, ComponentProps, forwardRef, ReactElement } from
 import useModalContext from "@/hooks/context/useModalContext";
 import { cn } from "@/utils/tailwind";
 
+/** Modal Trigger 컴포넌트 */
 interface ModalTriggerProps extends ComponentProps<"button"> {
   asChild?: boolean;
 }

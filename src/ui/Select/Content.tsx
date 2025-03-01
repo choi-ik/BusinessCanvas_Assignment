@@ -3,12 +3,14 @@ import { ComponentProps, forwardRef, useEffect, useRef } from "react";
 import useSelectContext from "@/hooks/context/useSelectContext";
 import { cn } from "@/utils/tailwind";
 
+/** Select의 Item 컴포넌트를 포함하는 Container 역할의 컴포넌트 */
 const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
   ({ className, children, ...props }, ref) => {
     const { open, setOpen } = useSelectContext();
 
     const contentRef = useRef<HTMLDivElement | null>(null);
 
+    // contentRef와 forwardRef의 참조를 동기화
     const setRefs = (node: HTMLDivElement | null) => {
       contentRef.current = node;
       if (typeof ref === "function") ref(node);
@@ -16,6 +18,7 @@ const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
     };
 
     useEffect(() => {
+      // Select 외부 클릭 반응 로직
       const handleClickOutside = (event: MouseEvent) => {
         if (contentRef.current && !contentRef.current.contains(event.target as Node)) {
           setOpen(false);
@@ -28,7 +31,7 @@ const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, [open, setOpen]);
+    }, []);
 
     if (!open) return null;
 

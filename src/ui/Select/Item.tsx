@@ -3,6 +3,7 @@ import { ComponentProps, forwardRef } from "react";
 import useSelectContext from "@/hooks/context/useSelectContext";
 import { cn } from "@/utils/tailwind";
 
+/** Select의 Content 내부에 나타낼 item 컴포넌트 */
 const Item = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
   ({ className, children, ...props }, ref) => {
     const { selectedValue, setSelectedValue, setOpen } = useSelectContext();

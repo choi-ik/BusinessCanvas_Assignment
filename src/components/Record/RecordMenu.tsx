@@ -7,6 +7,7 @@ interface RecordActionsProps {
   onClickDelete: () => void;
 }
 
+/** 테이블 레코드의 수정/삭제 메뉴 드롭다운 */
 export default function RecordMenu({ onClickEdit, onClickDelete }: RecordActionsProps) {
   const menuItems: MenuProps["items"] = [
     {

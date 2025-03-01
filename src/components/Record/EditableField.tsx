@@ -14,13 +14,17 @@ interface EditableFieldProps<T> {
   recordRef: MutableRefObject<T>;
 }
 
+/** 다양한 입력 유형을 지원하는 편집 가능한 필드 컴포넌트 */
 function EditableField<T>({ field, recordRef }: EditableFieldProps<T>) {
+  // 현재 필드의 기본값 가져오기
   const defaultValue = recordRef.current[field.key as keyof T];
 
+  // recordRef 값 업데이트
   const handleChange = (newValue: string | boolean) => {
     recordRef.current[field.key as keyof T] = newValue as T[keyof T];
   };
 
+  // 필드 타입 별 조건부 렌더링
   switch (field.type) {
     case "text":
       return (

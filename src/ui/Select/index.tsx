@@ -7,6 +7,7 @@ import { Item } from "./Item";
 import SelectContext from "./Store";
 import { Trigger } from "./Trigger";
 
+/** Select Root 컴포넌트 */
 interface SelectProps extends ComponentProps<"div"> {
   selectedValue?: string;
   onSelectedValue?: (value: string) => void;

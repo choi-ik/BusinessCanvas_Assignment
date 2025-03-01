@@ -10,6 +10,7 @@ type UseControllableStateParams<T> = {
 
 type SetStateFn<T> = (prevState?: T) => T;
 
+/** 상위에서 제어/비제어를 핸들링 할 수 있도록 지원하는 훅 */
 export default function useControllableState<T>({
   prop,
   defaultProp,

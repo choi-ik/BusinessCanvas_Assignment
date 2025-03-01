@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { createArrayStorage } from "@/utils/arrayStorage";
 
+/** arrayStorage.ts를 래핑하여 상태관리를 지원하는 훅 */
 export function useArrayStorage<T>(key: string, initialValue: T[] = []) {
   const storage = createArrayStorage<T>(key, initialValue);
   const [value, setValue] = useState<T[] | null>(storage.getValue());

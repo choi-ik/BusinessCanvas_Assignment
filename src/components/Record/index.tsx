@@ -17,6 +17,7 @@ interface RecordProps extends MemberRecord {
   updateRecord: UseArrayStorageReturn<MemberRecord>["updateItem"];
 }
 
+/** 개별 회원 정보를 표시하고 수정/삭제 기능을 제공하는 컴포넌트 */
 export default function Record({
   name,
   address,
@@ -27,7 +28,10 @@ export default function Record({
   removeRecord,
   updateRecord,
 }: RecordProps) {
+  // 현재 편집 모드 여부
   const [isEditing, setIsEditing] = useState(false);
+
+  // 편집 중 변경된 데이터를 저장
   const editRecordRef = useRef<MemberRecord>({
     name,
     address,
@@ -37,11 +41,13 @@ export default function Record({
     emailConsent,
   });
 
+  // 수정 버튼 클릭 시 현재 데이터를 복사하여 편집 모드 활성화
   const handleEdit = () => {
     editRecordRef.current = { name, address, memo, joinDate, job, emailConsent };
     setIsEditing(true);
   };
 
+  // 저장 버튼 클릭 시 변경된 데이터를 업데이트하고 편집 모드 종료
   const handleSave = () => {
     const finalData: MemberRecord = { ...editRecordRef.current };
     updateRecord(
@@ -51,12 +57,20 @@ export default function Record({
     setIsEditing(false);
   };
 
+  // 삭제 버튼 클릭 시 해당 레코드 제거
   const handleDelete = () => {
     removeRecord((record) => record.name === name);
   };
 
+  /**
+   * 컬럼 이름을 기반으로 적절한 필드를 렌더링
+   * - 편집 모드일 경우: 입력 가능한 `EditableField` 제공
+   * - 기본 모드일 경우: 해당 값 표시
+   */
   const renderField = (colName: string) => {
     let fieldDefinition: FieldDefinition;
+
+    // 필드 타입 정의 (선택 필드와 일반 필드 구분)
     if (fieldMap[colName] === "select") {
       fieldDefinition = {
         label: colName,

@@ -6,6 +6,7 @@ interface FilterMenuItemProps {
   onChangeFilter: () => void;
 }
 
+/** 필터 메뉴의 개별 선택 항목을 렌더링하는 컴포넌트 */
 export default function FilterItem({ label, checked, onChangeFilter }: FilterMenuItemProps) {
   return (
     <div

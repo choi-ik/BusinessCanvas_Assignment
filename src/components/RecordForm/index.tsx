@@ -18,10 +18,13 @@ interface RecordFormProps {
   addRecord: UseArrayStorageReturn<MemberRecord>["add"];
 }
 
+/** 회원 추가를 위한 입력 폼 모달 컴포넌트 */
 export default function RecordForm({ onOpenChange, addRecord }: RecordFormProps) {
+  // Ref 객체 생성: 폼, 버튼, 입력 데이터를 관리
   const contentRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
+  // 회원 정보를 저장하는 Ref
   const recordRef = useRef<MemberRecord>({
     name: "",
     address: "",
@@ -31,6 +34,7 @@ export default function RecordForm({ onOpenChange, addRecord }: RecordFormProps)
     emailConsent: false,
   });
 
+  // 입력 값에 따라 제출 버튼 활성화 상태 업데이트
   const updateSubmitButtonState = () => {
     const nameValue = recordRef.current.name;
     const joinDateValue = recordRef.current.joinDate;
@@ -39,6 +43,7 @@ export default function RecordForm({ onOpenChange, addRecord }: RecordFormProps)
     }
   };
 
+  // 입력 필드 변경 핸들러
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     recordRef.current.name = e.target.value;
     updateSubmitButtonState();
@@ -65,11 +70,17 @@ export default function RecordForm({ onOpenChange, addRecord }: RecordFormProps)
     recordRef.current.emailConsent = checked;
   };
 
+  // 폼 제출 핸들러 - 입력된 데이터를 저장하고 모달 닫기
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // 현재 입력된 데이터 복사 후 추가
     const finalData: MemberRecord = { ...recordRef.current };
     addRecord(finalData);
+    onOpenChange(false);
+  };
+
+  const handleClickCancel = () => {
     onOpenChange(false);
   };
 
@@ -137,6 +148,7 @@ export default function RecordForm({ onOpenChange, addRecord }: RecordFormProps)
         <Modal.Footer>
           <Button
             type="button"
+            onClick={handleClickCancel}
             className="h-8 w-[3.563rem] border border-[#E3E3E3] bg-white text-sm text-black/65 hover:bg-white active:bg-white"
           >
             취소

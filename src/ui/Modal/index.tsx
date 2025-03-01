@@ -11,6 +11,7 @@ import { Header } from "./Header";
 import ModalContext from "./Store";
 import { Trigger } from "./Trigger";
 
+/** Modal의 루트 컴포넌트 */
 interface ModalProps extends ComponentProps<"div"> {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
