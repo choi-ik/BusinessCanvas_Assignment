@@ -1,5 +1,8 @@
+import { MemberRecord } from "./record";
+
 export interface BaseField {
   label: string;
+  key: keyof MemberRecord;
   required?: boolean;
 }
 
@@ -13,3 +16,4 @@ export interface NonSelectField extends BaseField {
 }
 
 export type FieldDefinition = SelectField | NonSelectField;
+export type FieldTypes = "text" | "textarea" | "date" | "select" | "checkbox";
