@@ -79,15 +79,15 @@ export default function Record({
         return <Checkbox checked={emailConsent} />;
       }
 
-      return <div>{editRecordRef.current[fieldDefinition.key]}</div>;
+      return <div className="break-words">{editRecordRef.current[fieldDefinition.key]}</div>;
     } else {
       return <EditableField<MemberRecord> field={fieldDefinition} recordRef={editRecordRef} />;
     }
   };
 
   return (
-    <tr className="flex h-12 w-[81.063rem] items-center text-sm">
-      <td className="flex h-full w-8 items-center justify-center border border-black/[.06]">
+    <tr className="flex min-h-12 w-[81.063rem] items-center text-sm">
+      <td className="flex min-h-full w-8 items-center justify-center border border-black/[.06]">
         <Checkbox />
       </td>
       {RECORD_HEAD.map(({ name: colName, size }) => (
