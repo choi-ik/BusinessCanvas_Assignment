@@ -3,8 +3,6 @@ import { ComponentProps, forwardRef } from "react";
 import useSelectContext from "@/hooks/context/useSelectContext";
 import { cn } from "@/utils/tailwind";
 
-import { Icon } from "../Icon";
-
 const Trigger = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
   ({ className, children, ...props }, ref) => {
     const { open, setOpen, selectedValue } = useSelectContext();
@@ -20,10 +18,7 @@ const Trigger = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
         onClick={() => setOpen(!open)}
         {...props}
       >
-        <div className="flex w-full items-center justify-between">
-          {selectedValue || children}
-          <Icon name="ChevronDown" size={16} />
-        </div>
+        <div className="flex w-full items-center justify-between">{selectedValue || children}</div>
       </button>
     );
   },
