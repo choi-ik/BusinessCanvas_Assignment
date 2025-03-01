@@ -10,14 +10,14 @@ import { Icon } from "./Icon";
 interface CheckboxProps extends ComponentProps<"button"> {
   checked?: boolean;
   defaultCheck?: boolean;
-  onCheckedChange?: (checked: boolean) => void;
+  onChangeChecked?: (checked: boolean) => void;
 }
 
 const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
-  ({ className, checked, defaultCheck, onCheckedChange, ...props }, ref) => {
+  ({ className, checked, defaultCheck, onChangeChecked, ...props }, ref) => {
     const [internalChecked, setInternalChecked] = useControllableState<boolean>({
       prop: checked,
-      onChange: onCheckedChange,
+      onChange: onChangeChecked,
       defaultProp: defaultCheck,
     });
 
