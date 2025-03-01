@@ -28,6 +28,7 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
     return (
       <button
         ref={ref}
+        type="button"
         role="checkbox"
         onClick={handleToggleChecked}
         className={cn(
