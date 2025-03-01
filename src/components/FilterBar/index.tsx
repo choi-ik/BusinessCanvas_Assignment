@@ -1,23 +1,19 @@
 import { useState, useEffect } from "react";
 
 import { RECORD_HEAD } from "@/constants/record";
-import { MEMBER_KEY } from "@/constants/storageKey";
 import { MemberRecord } from "@/types/record";
 import { Icon } from "@/ui/Icon";
-import { createArrayStorage } from "@/utils/arrayStorage";
 import { cn } from "@/utils/tailwind";
 
 import FilterMenu from "./FilterMenu";
 
 interface FilterBarProps {
+  records: MemberRecord[] | null;
   setRecords: (records: MemberRecord[]) => void;
 }
 
 /** 테이블 상단에서 필터링을 위한 필터 바 컴포넌트 */
-export default function FilterBar({ setRecords }: FilterBarProps) {
-  // 로컬 스토리지에서 기존 데이터 가져오기
-  const records = createArrayStorage<MemberRecord>(MEMBER_KEY).getValue();
-
+export default function FilterBar({ records, setRecords }: FilterBarProps) {
   // 필터 선택된 값 상태
   const [filterSelections, setFilterSelections] = useState<{ [field: string]: string[] }>({});
 

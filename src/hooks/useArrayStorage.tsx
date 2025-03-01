@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { createArrayStorage } from "@/utils/arrayStorage";
 
 /** arrayStorage.ts를 래핑하여 상태관리를 지원하는 훅 */
 export function useArrayStorage<T>(key: string, initialValue: T[] = []) {
-  const storage = createArrayStorage<T>(key, initialValue);
+  const storage = useMemo(() => createArrayStorage<T>(key, initialValue), [key]);
   const [value, setValue] = useState<T[] | null>(storage.getValue());
 
   useEffect(() => {
@@ -38,5 +38,5 @@ export function useArrayStorage<T>(key: string, initialValue: T[] = []) {
     [storage],
   );
 
-  return { value, setValue, add, remove, updateItem };
+  return { value, setValue, add, remove, updateItem, storage };
 }
