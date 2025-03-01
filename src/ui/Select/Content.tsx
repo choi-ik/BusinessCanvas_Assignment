@@ -36,7 +36,7 @@ const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
       <div
         ref={setRefs}
         className={cn(
-          "relative z-50 mt-1 box-border w-[12.375rem] rounded-[0.625rem] border p-1 shadow-[0px_9px_28px_8px_#0000000D,0px_3px_6px_-4px_#0000001F,0px_6px_16px_0px_#00000014]",
+          "absolute z-50 mt-1 box-border w-[12.375rem] rounded-[0.625rem] border p-1 shadow-[0px_9px_28px_8px_#0000000D,0px_3px_6px_-4px_#0000001F,0px_6px_16px_0px_#00000014]",
           className,
         )}
         {...props}

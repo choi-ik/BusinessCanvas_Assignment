@@ -29,7 +29,7 @@ function SelectRoot({
 
   return (
     <SelectContext.Provider value={{ open, setOpen, selectedValue, setSelectedValue }}>
-      <div className="h-fit w-fit" {...props}>
+      <div className="relative h-fit w-fit" {...props}>
         {children}
       </div>
     </SelectContext.Provider>
