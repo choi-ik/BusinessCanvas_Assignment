@@ -22,11 +22,7 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
     });
 
     const handleToggleChecked = () => {
-      if (!internalChecked) {
-        setInternalChecked(true);
-      } else {
-        setInternalChecked(false);
-      }
+      setInternalChecked(!internalChecked);
     };
 
     return (
