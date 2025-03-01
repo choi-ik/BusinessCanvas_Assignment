@@ -1,4 +1,4 @@
-import { ComponentProps, forwardRef, RefObject, useEffect, useRef } from "react";
+import { ComponentProps, forwardRef, useEffect, useRef } from "react";
 
 import useSelectContext from "@/hooks/context/useSelectContext";
 import { cn } from "@/utils/tailwind";
@@ -7,12 +7,12 @@ const Content = forwardRef<HTMLDivElement, ComponentProps<"div">>(
   ({ className, children, ...props }, ref) => {
     const { open, setOpen } = useSelectContext();
 
-    const contentRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement | null>(null);
 
     const setRefs = (node: HTMLDivElement | null) => {
       contentRef.current = node;
       if (typeof ref === "function") ref(node);
-      else if (ref) (ref as RefObject<HTMLDivElement | null>).current = node;
+      else if (ref && "current" in ref) ref.current = node;
     };
 
     useEffect(() => {
