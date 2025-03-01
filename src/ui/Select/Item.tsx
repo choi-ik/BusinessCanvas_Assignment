@@ -9,6 +9,11 @@ const Item = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
 
     const itemValue = typeof children === "string" ? children : "";
 
+    const handleClickSelectValue = () => {
+      setSelectedValue?.(itemValue);
+      setOpen(false);
+    };
+
     return (
       <button
         ref={ref}
@@ -18,13 +23,10 @@ const Item = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
           selectedValue === itemValue && "bg-[#F0F7FF] text-[#4A7CFE]",
           className,
         )}
-        onClick={() => {
-          setSelectedValue?.(itemValue);
-          setOpen(false);
-        }}
+        onClick={handleClickSelectValue}
         {...props}
       >
-        <span>{children}</span>
+        {children}
       </button>
     );
   },

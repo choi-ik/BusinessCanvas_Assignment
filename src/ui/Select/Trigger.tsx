@@ -7,6 +7,10 @@ const Trigger = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
   ({ className, children, ...props }, ref) => {
     const { open, setOpen, selectedValue } = useSelectContext();
 
+    const handleChangeOpen = () => {
+      setOpen(!open);
+    };
+
     return (
       <button
         ref={ref}
@@ -15,7 +19,7 @@ const Trigger = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
           "flex h-8 min-w-[5.313rem] whitespace-nowrap rounded-lg border border-[#E3E3E3] bg-white px-3 text-sm hover:border-[#739FFF] hover:px-4 hover:text-[#4A7CFE]",
           className,
         )}
-        onClick={() => setOpen(!open)}
+        onClick={handleChangeOpen}
         {...props}
       >
         <div className="flex w-full items-center justify-between">{selectedValue || children}</div>
