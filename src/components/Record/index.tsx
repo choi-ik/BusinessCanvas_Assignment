@@ -101,7 +101,7 @@ export default function Record({
 
   return (
     <tr className="flex min-h-12 w-[81.063rem] items-center text-sm">
-      <td className="flex min-h-full w-8 items-center justify-center border border-black/[.06]">
+      <td className="flex min-h-12 w-8 items-center justify-center border border-black/[.06]">
         <Checkbox />
       </td>
       {RECORD_HEAD.map(({ name: colName, size }) => (
