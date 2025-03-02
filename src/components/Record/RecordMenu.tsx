@@ -35,6 +35,7 @@ export default function RecordMenu({ onClickEdit, onClickDelete }: RecordActions
   return (
     <Dropdown
       menu={{ items: menuItems }}
+      trigger={["click"]}
       overlayClassName="h-20 w-[11.563rem] rounded-[0.625rem] bg-white p-1"
       arrow={false}
     >
